@@ -12,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import com.example.calculator.databinding.ActivityMainBinding
 import org.w3c.dom.Text
+import java.math.BigInteger
 
 class MainActivity : AppCompatActivity() {
     lateinit var text:String
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 if (binding.decimalEdit.hasFocus()&&binding.decimalEdit.text.isEmpty()) {
                     clearALlExceptDec()
                 }
+
 
             }
 
@@ -126,24 +128,52 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun convertFromDec(){
-        val dec = binding.decimalEdit.text.toString().toLong()
-        binding.binaryEdit.setText(dec.toString(2))
-        binding.octalEdit.setText(dec.toString(8))
-        binding.hexaEdit.setText(dec.toString(16).uppercase())
+
+        try {
+            val d =binding.decimalEdit.text.toString()
+            val dec=BigInteger(d)
+            binding.binaryEdit.setText(dec.toString(2))
+            binding.octalEdit.setText(dec.toString(8))
+            binding.hexaEdit.setText(dec.toString(16).uppercase())
+        } catch (e: NumberFormatException) {
+            binding.binaryEdit.setText("")
+            binding.octalEdit.setText("")
+            binding.hexaEdit.setText("")
+        }
+
+
 
     }
     fun convertFromHex(){
-        val dec=binding.hexaEdit.text.toString().toLong(16)
-        binding.binaryEdit.setText(dec.toString(2))
-        binding.octalEdit.setText(dec.toString(8))
-        binding.decimalEdit.setText(dec.toString())
+
+        try {
+            val d=binding.hexaEdit.text.toString().toLong(16).toString()
+            val dec=BigInteger(d)
+            binding.binaryEdit.setText(dec.toString(2))
+            binding.octalEdit.setText(dec.toString(8))
+            binding.decimalEdit.setText(dec.toString())
+
+        } catch (e: NumberFormatException) {
+            binding.binaryEdit.setText("")
+            binding.octalEdit.setText("")
+            binding.hexaEdit.setText("")
+        }
+
     }
 
     fun convertFromOct(){
-        val dec=binding.octalEdit.text.toString().toLong(8)
-        binding.binaryEdit.setText(dec.toString(2))
-        binding.decimalEdit.setText(dec.toString())
-        binding.hexaEdit.setText(dec.toString(16).uppercase())
+        try {
+            val d=binding.octalEdit.text.toString().toLong(8).toString()
+            val dec=BigInteger(d)
+            binding.binaryEdit.setText(dec.toString(2))
+            binding.decimalEdit.setText(dec.toString())
+            binding.hexaEdit.setText(dec.toString(16).uppercase())
+        } catch (e: NumberFormatException) {
+            binding.binaryEdit.setText("")
+            binding.octalEdit.setText("")
+            binding.hexaEdit.setText("")
+        }
+
     }
     fun clearALlExceptBin(){
         binding.decimalEdit.text = null
