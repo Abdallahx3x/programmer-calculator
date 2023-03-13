@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 if (binding.decimalEdit.hasFocus()&&binding.decimalEdit.text.isEmpty()) {
-                    clearALlExceptDec()
+                    clearALl()
                 }
 
 
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                     convertFromBin()
                 }
                 if (binding.binaryEdit.hasFocus()&&binding.binaryEdit.text.isEmpty()) {
-                    clearALlExceptBin()
+                    clearALl()
                 }
             }
 
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                     convertFromOct()
                 }
                 if (binding.octalEdit.hasFocus()&&binding.octalEdit.text.isEmpty()) {
-                    clearALlExceptOct()
+                    clearALl()
                 }
             }
 
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                     convertFromHex()
                 }
                 if (binding.hexaEdit.hasFocus()&&binding.hexaEdit.text.isEmpty()) {
-                    clearALlExceptHex()
+                    clearALl()
                 }
             }
 
@@ -120,8 +120,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun convertFromBin(){
+
+    fun convertFromBin1(){
         val dec = binding.binaryEdit.text.toString().toLong(2)
+        binding.decimalEdit.setText(dec.toString())
+        binding.octalEdit.setText(dec.toString(8))
+        binding.hexaEdit.setText(dec.toString(16).uppercase())
+    }
+
+    fun convertFromBin(){
+        val d = binding.binaryEdit.text.toString().toLong(2).toString()
+        val dec=BigInteger(d)
         binding.decimalEdit.setText(dec.toString())
         binding.octalEdit.setText(dec.toString(8))
         binding.hexaEdit.setText(dec.toString(16).uppercase())
@@ -129,78 +138,39 @@ class MainActivity : AppCompatActivity() {
 
     fun convertFromDec(){
 
-        try {
             val d =binding.decimalEdit.text.toString()
             val dec=BigInteger(d)
             binding.binaryEdit.setText(dec.toString(2))
             binding.octalEdit.setText(dec.toString(8))
             binding.hexaEdit.setText(dec.toString(16).uppercase())
-        } catch (e: NumberFormatException) {
-            binding.binaryEdit.setText("")
-            binding.octalEdit.setText("")
-            binding.hexaEdit.setText("")
-        }
-
-
 
     }
     fun convertFromHex(){
 
-        try {
             val d=binding.hexaEdit.text.toString().toLong(16).toString()
             val dec=BigInteger(d)
             binding.binaryEdit.setText(dec.toString(2))
             binding.octalEdit.setText(dec.toString(8))
             binding.decimalEdit.setText(dec.toString())
 
-        } catch (e: NumberFormatException) {
-            binding.binaryEdit.setText("")
-            binding.octalEdit.setText("")
-            binding.hexaEdit.setText("")
-        }
 
     }
 
     fun convertFromOct(){
-        try {
+
             val d=binding.octalEdit.text.toString().toLong(8).toString()
             val dec=BigInteger(d)
             binding.binaryEdit.setText(dec.toString(2))
             binding.decimalEdit.setText(dec.toString())
             binding.hexaEdit.setText(dec.toString(16).uppercase())
-        } catch (e: NumberFormatException) {
-            binding.binaryEdit.setText("")
-            binding.octalEdit.setText("")
-            binding.hexaEdit.setText("")
-        }
 
     }
-    fun clearALlExceptBin(){
-        binding.decimalEdit.text = null
-        binding.octalEdit.text = null
-        binding.hexaEdit.text = null
-    }
 
-    fun clearALlExceptDec(){
-        binding.binaryEdit.text = null
-        binding.octalEdit.text = null
-        binding.hexaEdit.text = null
-    }
-    fun clearALlExceptOct(){
-        binding.decimalEdit.text = null
-        binding.binaryEdit.text = null
-        binding.hexaEdit.text = null
-    }
-    fun clearALlExceptHex(){
-        binding.binaryEdit.text = null
-        binding.octalEdit.text = null
-        binding.decimalEdit.text = null
-    }
     fun clearALl(){
-        binding.decimalEdit.text = null
-        binding.binaryEdit.text = null
-        binding.octalEdit.text = null
-        binding.hexaEdit.text = null
+        binding.decimalEdit.text.clear()
+        binding.binaryEdit.text.clear()
+        binding.octalEdit.text.clear()
+        binding.hexaEdit.text.clear()
     }
 
 }
