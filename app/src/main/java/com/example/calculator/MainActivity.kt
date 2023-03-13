@@ -24,33 +24,19 @@ class MainActivity : AppCompatActivity() {
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        convertFromBinaryEditText()
+        convertFromDecimalEditText()
+        convertFromOctalEditText()
+        convertFromHexalEditText()
+
+        binding.btnClear.setOnClickListener {
+            clearALl()
+        }
 
 
+    }
 
-        binding.decimalEdit.addTextChangedListener( object :TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (binding.decimalEdit.hasFocus()&&binding.decimalEdit.text.isNotEmpty()) {
-                    convertFromDec()
-
-                }
-                if (binding.decimalEdit.hasFocus()&&binding.decimalEdit.text.isEmpty()) {
-                    clearALl()
-                }
-
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        } )
-
-
+    fun convertFromBinaryEditText(){
         binding.binaryEdit.addTextChangedListener( object :TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -70,7 +56,29 @@ class MainActivity : AppCompatActivity() {
             }
 
         } )
+    }
+    fun convertFromDecimalEditText(){
+        binding.decimalEdit.addTextChangedListener( object :TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (binding.decimalEdit.hasFocus()&&binding.decimalEdit.text.isNotEmpty()) {
+                    convertFromDec()
+                }
+                if (binding.decimalEdit.hasFocus()&&binding.decimalEdit.text.isEmpty()) {
+                    clearALl()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        } )
+    }
+    fun convertFromOctalEditText(){
         binding.octalEdit.addTextChangedListener( object :TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -90,7 +98,8 @@ class MainActivity : AppCompatActivity() {
             }
 
         } )
-
+    }
+    fun convertFromHexalEditText(){
         binding.hexaEdit.addTextChangedListener( object :TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -110,22 +119,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         } )
-
-        binding.btnClear.setOnClickListener {
-            clearALl()
-        }
-
-
-
-
-    }
-
-
-    fun convertFromBin1(){
-        val dec = binding.binaryEdit.text.toString().toLong(2)
-        binding.decimalEdit.setText(dec.toString())
-        binding.octalEdit.setText(dec.toString(8))
-        binding.hexaEdit.setText(dec.toString(16).uppercase())
     }
 
     fun convertFromBin(){
