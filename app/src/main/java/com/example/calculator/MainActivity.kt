@@ -121,6 +121,7 @@ class MainActivity : AppCompatActivity() {
         } )
     }
 
+
     fun convertFromBin(){
         val d = binding.binaryEdit.text.toString().toLong(2).toString()
         val dec=BigInteger(d)
